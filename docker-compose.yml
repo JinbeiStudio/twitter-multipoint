@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  PHP-twitter:
+    image: php:7.2-apache
+    ports:
+      - 8070:80
+    volumes:
+      - $PWD:/var/www/html
+    restart: unless-stopped
