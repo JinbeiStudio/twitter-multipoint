@@ -1,7 +1,7 @@
 <?php
 require_once('TwitterAPIExchange.php');
 
-class Tweet
+class Twitter
 {
     const settings = [
         'oauth_access_token' => "2348986722-DIF6jg9iLe2NBFIyANE3h0SkrmoltjmOljJF4Tg",
