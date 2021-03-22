@@ -1,5 +1,7 @@
 <?php
 require_once('TwitterAPIExchange.php');
+require_once('Tweet.php');
+
 
 class Twitter
 {
@@ -10,6 +12,11 @@ class Twitter
         'consumer_secret' => "dfBP1RDT4KZ9NVEuvqdSgvCzLmombznXU1zz1iTKx3C9T9CpA7"
     ];
 
+    private $result = [
+        'content' => null,
+        'format' => null
+    ]; 
+
     function __construct()
     {
         $this->url = 'https://api.twitter.com/1.1/search/tweets.json';
@@ -18,8 +25,27 @@ class Twitter
 
     public function search($getfield)
     {
-        return $this->twitter->setGetfield("?q=#" . $getfield)
+        $this->result['content'] = $this->twitter->setGetfield("?q=#" . $getfield)
             ->buildOauth($this->url, 'GET')
             ->performRequest();
+        $this->result['format'] = 'json';
+    }
+
+    public function convert()
+    {
+        $this->result['content'] = json_decode($this->result['content'],true);
+        $newTab = [];
+        //print_r($this->result['content']);
+        foreach($this->result['content']['statuses'] as $tweet)
+        {
+            $newTab[] = new Tweet($tweet);
+        }
+        $this->result['content'] = $newTab;
+        $this->result['format'] = 'Tweet';
+    }
+
+    public function getResult()
+    {
+        return $this->result['content'];
     }
 }
