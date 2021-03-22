@@ -1,8 +1,8 @@
 <?php
 echo "<h1>Test Cinéma</h1>";
-require_once('tweet.php');
+require_once 'Twitter.php';
 
-$tweet = new Tweet();
+$tweet = new Twitter();
 print_r($tweet->search("cinema"));
 
 ?>
