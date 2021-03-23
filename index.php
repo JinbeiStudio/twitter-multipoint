@@ -1,4 +1,5 @@
 <?php
+require_once './functions/Twitter.php';
 require_once './views/component/head.php';
 require_once './views/component/header.php';
 ?>
