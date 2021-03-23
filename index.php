@@ -9,7 +9,7 @@ require_once './views/component/header.php';
             <label for="recherche">Tapez votre recherche</label>
             <div class="input-group mb-3">
 
-                <input type="text" id="recherche" class="form-control" placeholder="Recherche" aria-label="search">
+                <input type="text" id="recherche" name="recherche" class="form-control" placeholder="Recherche" aria-label="search">
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">
                         <i class="fas fa-search"></i>
