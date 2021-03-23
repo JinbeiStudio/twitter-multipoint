@@ -19,12 +19,17 @@ require_once './views/component/header.php';
         </div>
     </form>
 
+<<<<<<< HEAD
     <?php
+=======
+<?php
+>>>>>>> 8c6c52bbeeaf7818d284af61a86cf578d7ce6701
     $view = './views/template/no_search.php';
     if (isset($_SESSION['recherche'])) {
         $view = './views/template/result.php';
     }
     require_once $view;
+<<<<<<< HEAD
     ?>
 
 </main>
@@ -32,3 +37,7 @@ require_once './views/component/header.php';
 <?php
 require_once('./views/component/footer.php');
 ?>
+=======
+    require_once('./views/component/footer.php'); 
+?>
+>>>>>>> 8c6c52bbeeaf7818d284af61a86cf578d7ce6701
