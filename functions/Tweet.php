@@ -12,9 +12,24 @@ class Tweet
 
     function display()
     {
-        $name = $this->user["name"] . 'test';
-        $created_at = $this->created_at;
-        $text = $this->text;
+        $name = 'name';
+        $created_at = 'date';
+        $text = 'text';
+        if(isset($this->user["name"]))
+        {
+            $name = $this->user["name"];
+        }
+        
+        if(isset($this->created_at))
+        {
+            $created_at = $this->created_at;
+        }
+
+        if(isset($this->text)){
+            $text = $this->text;
+        }
+        
+        
 
         // return '<pre>' . print_r($this->created_at) . '</pre>';
         return  "<div class='card' style='width: 18rem;'>

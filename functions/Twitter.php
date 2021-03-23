@@ -26,9 +26,26 @@ class Twitter
     public function search($getfield)
     {
         $this->result['content'] = $this->twitter->setGetfield("?q=#" . $getfield)
-            ->buildOauth($this->url, 'GET')
-            ->performRequest();
+                                                ->buildOauth($this->url, 'GET')
+                                                ->performRequest();
         $this->result['format'] = 'json';
+
+        $decode = json_decode($this->result['content'],true);
+
+        if(isset($decode['errors']))
+        {
+            $this->errors = $decode['errors'];
+            $this->errors['url'] = $this->url . "?q=#" . $getfield;
+            $this->result = [];
+            $this->result[] = new Tweet([]);
+            return [
+                'status' => false,
+                'errors' => $this->errors,
+            ];
+        }
+        return [
+            'status' => true
+        ];
     }
 
     public function convert()
@@ -36,9 +53,12 @@ class Twitter
         $this->result['content'] = json_decode($this->result['content'],true);
         $newTab = [];
         //print_r($this->result['content']);
-        foreach($this->result['content']['statuses'] as $tweet)
+        if(isset($this->result['content']['statuses']))
         {
-            $newTab[] = new Tweet($tweet);
+            foreach($this->result['content']['statuses'] as $tweet)
+            {
+                $newTab[] = new Tweet($tweet);
+            }
         }
         $this->result['content'] = $newTab;
         $this->result['format'] = 'Tweet';
