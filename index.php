@@ -14,11 +14,11 @@ require_once './views/component/header.php'; ?>
 </form>
 
 <?php
+$view = './views/template/start.php';
 if (isset($_SESSION['recherche'])) {
-    require_once('./views/template/result.php');
-} else {
-    echo "Pas de recherche effectuée.";
-}
+    $view = './views/template/result.php';
+} 
+require_once $view;
 
 ?>
 <?php require_once('./views/component/footer.php'); ?>
