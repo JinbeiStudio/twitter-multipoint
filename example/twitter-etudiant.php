@@ -1,6 +1,6 @@
 <?php
 echo "<h1>Simple Twitter API Test</h1>";
-require_once('TwitterAPIExchange.php');
+require_once('../functions/TwitterAPIExchange.php');
 
 /** Set access tokens here - see: https://dev.twitter.com/apps/ **/
 $settings = array(

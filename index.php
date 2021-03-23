@@ -1,8 +1,24 @@
-<?php require_once './head.php'; ?>
-<?php require_once './header.php'; ?>
+<?php require_once './views/component/head.php';
+require_once './views/component/header.php'; ?>
 
-<?php echo ("Twitter multipoint"); ?>
+<form action="./functions/recherche.php" method="post">
+    <div class="input-group">
+        <div class="form-outline">
+            <input name="recherche" type="search" id="recherche" class="form-control" />
+            <label class="form-label" for="form1">Rechercher</label>
+        </div>
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+</form>
 
-<?php require_once('./result.php'); ?> 
+<?php
+if (isset($_SESSION['recherche'])) {
+    require_once('./views/template/result.php');
+} else {
+    echo "Pas de recherche effectuée.";
+}
 
-<?php require_once('./footer.php'); ?> 
+?>
+<?php require_once('./views/component/footer.php'); ?>

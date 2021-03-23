@@ -1,8 +1,5 @@
 <p>Result</p>
-<?php include_once('./cinema.php');?>
-
-<? $tweets = $tweet->getResult(); ?>
-
+<?php include_once('./functions/cinema.php'); ?>
 
 
 <!-- <? echo('<pre>');
@@ -11,8 +8,8 @@ echo('</pre>');
 ?> -->
 
 
-<?php foreach ($tweets as $tweet) {
+<?php
+foreach (unserialize($_SESSION['recherche']) as $tweet) {
     // echo 'test';
     echo $tweet->display();
- } ?>
-
+} ?>
