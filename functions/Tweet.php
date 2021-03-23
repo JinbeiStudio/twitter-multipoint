@@ -18,10 +18,11 @@ class Tweet
             $text = $this->text ?: 'text';
 
         return  "<div class='card' style='width: 18rem;'>
-            <div class='card-body'>
-                <h5 class='card-title'> $name </h5>
-                <h6>$created_at</h6>
-                <p class='card-text'> $text</p>
+                    <div class='card-body'>
+                        <h5 class='card-title'> $name </h5>
+                        <h6>$created_at</h6>
+                        <p class='card-text'> $text</p>
+                    </div>
                 </div>
             ";
 
