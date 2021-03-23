@@ -23,6 +23,7 @@ class Twitter
         $this->twitter = new TwitterAPIExchange(self::settings);
     }
 
+    //Effectue la recherche, renvoie un tableau où status indique la résolution de la recherche 
     public function search($getfield)
     {
         $this->result['content'] = $this->twitter->setGetfield("?q=#" . $getfield)
@@ -30,8 +31,9 @@ class Twitter
                                                 ->performRequest();
         $this->result['format'] = 'json';
 
-        $decode = json_decode($this->result['content'],true);
 
+        $decode = json_decode($this->result['content'],true);
+        //En cas d'erreurs, retourne le détail
         if(isset($decode['errors']))
         {
             $this->errors = $decode['errors'];
@@ -43,16 +45,18 @@ class Twitter
                 'errors' => $this->errors,
             ];
         }
+
+        //pas d'erreurs, retour valide
         return [
             'status' => true
         ];
     }
 
+    //Converti le résultat de la recherche en Objects Tweets
     public function convert()
     {
         $this->result['content'] = json_decode($this->result['content'],true);
         $newTab = [];
-        //print_r($this->result['content']);
         if(isset($this->result['content']['statuses']))
         {
             foreach($this->result['content']['statuses'] as $tweet)
@@ -64,6 +68,7 @@ class Twitter
         $this->result['format'] = 'Tweet';
     }
 
+    //Renvoie le résultat
     public function getResult()
     {
         return $this->result['content'];

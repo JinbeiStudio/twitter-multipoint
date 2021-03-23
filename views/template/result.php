@@ -1,6 +1,7 @@
 <!--p>Result</p-->
 
 <pre>
+
 <?php
 // print_r(unserialize($_SESSION['recherche'])); 
 ?>
