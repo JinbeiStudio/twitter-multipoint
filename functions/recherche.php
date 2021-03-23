@@ -5,7 +5,13 @@ require_once('Twitter.php');
 $tweet = new Twitter();
 
 $terme = htmlentities($_POST['recherche']);
-$tweet->search($terme);
+
+if(!$tweet->search($terme)['status'])
+{
+    //header("Location: ../index.php");
+    print_r( $tweet->errors);
+    exit();
+}
 $tweet->convert();
 $resultat = serialize($tweet->getResult());
 

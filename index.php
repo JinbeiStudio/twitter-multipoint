@@ -20,11 +20,11 @@ require_once './views/component/header.php';
     </form>
 
     <?php
-    $view = './views/template/no_search.php';
-    if (isset($_SESSION['recherche'])) {
-        $view = './views/template/result.php';
-    }
-    require_once $view;
+        $view = './views/template/no_search.php';
+        if (isset($_SESSION['recherche'])) {
+            $view = './views/template/result.php';
+        }
+        require_once $view;
     ?>
 
 </main>
