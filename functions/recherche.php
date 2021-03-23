@@ -1,11 +1,11 @@
 <?php
 session_start();
-require_once('Twitter.php');
+require_once 'Twitter.php';
 
 $twitter = new Twitter();
-
 $terme = htmlentities($_POST['recherche']);
 
+//On fait la recherche et on affiche les éventuelles erreurs
 if(!$twitter->search($terme)['status'])
 {
     //header("Location: ../index.php");
@@ -13,13 +13,14 @@ if(!$twitter->search($terme)['status'])
     exit();
 }
 
+//Pas d'erreurs
+//on converti le résultat en objet
 $twitter->convert();
+
+//On le stocke dans la session
 $resultat = serialize($twitter->getResult());
 $_SESSION['recherche'] = $resultat;
-/*
-echo '<pre>';
-print_r($_SESSION['recherche']);
-echo '</pre>';
-*/
+
+//Redirection
 header("Location: ../index.php");
 exit();
