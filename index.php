@@ -1,9 +1,8 @@
-<?php require_once './views/component/head.php';
-require_once './views/component/header.php'; ?>
-
+<?php
+require_once './views/component/head.php';
+require_once './views/component/header.php';
+?>
 <main class="container mt-4">
-
-
 
     <form action="./functions/recherche.php" method="post">
         <div class="form-group">
@@ -21,14 +20,15 @@ require_once './views/component/header.php'; ?>
     </form>
 
     <?php
+    $view = './views/template/no_search.php';
     if (isset($_SESSION['recherche'])) {
-        require_once('./views/template/result.php');
-    } else {
-        echo "Pas de recherche effectuée.";
+        $view = './views/template/result.php';
     }
+    require_once $view;
     ?>
 
 </main>
 
-
-<?php require_once('./views/component/footer.php'); ?>
+<?php
+require_once('./views/component/footer.php');
+?>
