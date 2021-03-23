@@ -1,0 +1,13 @@
+:root {
+    --twitter : #1DA1F2;
+}
+
+.navbar a.navbar-brand {
+    color: var(--twitter) ;
+    font-weight: bold;
+    font-size: 2rem;
+}
+.nav-logo {
+    max-width: 50px;
+    height: auto;
+}
