@@ -20,16 +20,13 @@ require_once './views/component/header.php';
         </div>
     </form>
 
-    <?php
-        $view = './views/template/no_search.php';
-        if (isset($_SESSION['recherche'])) {
-            $view = './views/template/result.php';
-        }
-        require_once $view;
-    ?>
+<?php
+        //Affiche le result si une recherche est présente sinon affiche no_search 
+        require_once  $_SESSION['recherche'] ? './views/template/result.php' : './views/template/no_search.php';
+?>
 
 </main>
 
 <?php
-require_once('./views/component/footer.php');
+        require_once './views/component/footer.php';
 ?>

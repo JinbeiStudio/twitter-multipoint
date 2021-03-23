@@ -3,7 +3,7 @@ class Tweet
 {
     function __construct($datas)
     {
-        //$this->data = $datas;
+        //Pour chaque champs récupérés, on crée un attribut
         foreach($datas as $field=>$data)
         {
             $this->$field = $data;
@@ -12,26 +12,11 @@ class Tweet
 
     function display()
     {
-        $name = 'name';
-        $created_at = 'date';
-        $text = 'text';
-        if(isset($this->user["name"]))
-        {
-            $name = $this->user["name"];
-        }
-        
-        if(isset($this->created_at))
-        {
-            $created_at = $this->created_at;
-        }
+        //Affecte les variables necessaires à l'affichage du tweet avec des valeurs par défaut en cas d'absence
+            $name = $this->user["name"] ?: 'name';
+            $created_at = $this->created_at ?: 'date';
+            $text = $this->text ?: 'text';
 
-        if(isset($this->text)){
-            $text = $this->text;
-        }
-        
-        
-
-        // return '<pre>' . print_r($this->created_at) . '</pre>';
         return  "<div class='card' style='width: 18rem;'>
             <div class='card-body'>
                 <h5 class='card-title'> $name </h5>

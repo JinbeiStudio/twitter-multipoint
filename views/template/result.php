@@ -1,12 +1,6 @@
-<!--p>Result</p-->
-
 <?php
-
-/*echo '<pre>';
-print_r(unserialize($_SESSION['recherche']));
-echo '</pre>';*/
-
+//Buocle d'affichage des cartes de tweets
 foreach (unserialize($_SESSION['recherche']) as $tweet) {
-    // echo 'test';
     echo $tweet->display();
-} ?>
+} 
+?>
