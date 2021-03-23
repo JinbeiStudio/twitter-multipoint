@@ -4,7 +4,8 @@ require_once('Twitter.php');
 
 $tweet = new Twitter();
 
-$tweet->search($_POST['recherche']);
+$terme = htmlentities($_POST['recherche']);
+$tweet->search($terme);
 $tweet->convert();
 $resultat = serialize($tweet->getResult());
 
