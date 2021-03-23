@@ -1,5 +1,7 @@
-<?php require_once './views/component/head.php';
-require_once './views/component/header.php'; ?>
+<?php 
+    require_once './views/component/head.php';
+    require_once './views/component/header.php'; 
+?>
 
 <form action="./functions/recherche.php" method="post">
     <div class="input-group">
@@ -14,11 +16,10 @@ require_once './views/component/header.php'; ?>
 </form>
 
 <?php
-$view = './views/template/start.php';
-if (isset($_SESSION['recherche'])) {
-    $view = './views/template/result.php';
-} 
-require_once $view;
-
+    $view = './views/template/no_search.php';
+    if (isset($_SESSION['recherche'])) {
+        $view = './views/template/result.php';
+    } 
+    require_once $view;
+    require_once('./views/component/footer.php'); 
 ?>
-<?php require_once('./views/component/footer.php'); ?>
