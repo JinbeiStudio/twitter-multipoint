@@ -21,10 +21,8 @@ require_once './views/component/header.php';
     </form>
 
     <?php
-        $view = './views/template/no_search.php';
-        if (isset($_SESSION['recherche'])) {
-            $view = './views/template/result.php';
-        }
+        $view =  $_SESSION['recherche'] ? './views/template/result.php' : './views/template/no_search.php';
+
         require_once $view;
     ?>
 

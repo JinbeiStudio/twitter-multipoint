@@ -12,22 +12,13 @@ class Tweet
 
     function display()
     {
-        $name = 'name';
-        $created_at = 'date';
-        $text = 'text';
-        if(isset($this->user["name"]))
-        {
-            $name = $this->user["name"];
-        }
-        
-        if(isset($this->created_at))
-        {
-            $created_at = $this->created_at;
-        }
 
-        if(isset($this->text)){
-            $text = $this->text;
-        }
+            $name = $this->user["name"] ?: 'name';
+
+            $created_at = $this->created_at ?: 'date';
+
+            $text = $this->text ?: 'text';
+
         
         
 
