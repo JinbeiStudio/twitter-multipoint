@@ -10,7 +10,7 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link" href="index.php">Rechercher les derniers tweets<span class="sr-only">(current)</span></a>
-                    <a class="nav-link" href="stats.php">Statistiques par pays</a>
+                    <a class="nav-link" href="stats.php">Statistiques par langues</a>
                     <a class="nav-link" href="./functions/logout.php">Déconnexion</a>
                 </div>
             </div>
