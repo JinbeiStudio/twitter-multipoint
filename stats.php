@@ -36,6 +36,15 @@ require_once './views/component/header.php';
                 <?php } ?>
             </tbody>
         </table>
+        <?php
+        foreach (unserialize($_SESSION["stats"]) as $key => $value) {
+            $labels[] = $key;
+            $datasets[] = $value;
+        }
+        $labels = json_encode($labels);
+        $datasets = json_encode($datasets);
+        ?>
+        <canvas id="myChart" width="400" height="400"></canvas>
     <?php } ?>
 </main>
 <?php
@@ -50,5 +59,19 @@ require_once './views/component/footer.php';
                 url: 'traductions/french.json'
             }
         });
+    });
+
+    let labels = <?php echo $labels ?>;
+    let datasets = <?php echo $datasets ?>;
+
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: datasets
+            }],
+            labels: labels
+        }
     });
 </script>
