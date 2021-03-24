@@ -4,7 +4,7 @@ require_once 'Twitter.php';
 require_once 'tokenGen.php';
 
 $twitter = new Twitter($_SESSION['token']);
-$terme = htmlentities($_POST['recherche']);
+$terme = $_POST['recherche'];
 $_SESSION['terme'] = $terme;
 //On fait la recherche et on affiche les éventuelles erreurs
 if(!$twitter->search($terme)['status'])
