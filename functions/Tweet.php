@@ -16,7 +16,7 @@ class Tweet
     function display()
     {
         //On charge les images si besoin
-        if(!$this->imgLoaded) $this->loadImages();
+        if(!$this->imgLoaded){$this->loadImages();}
 
         //Affecte les variables necessaires à l'affichage du tweet avec des valeurs par défaut en cas d'absence
         $this->name = ($this->user["name"] ?: 'pas de nom');

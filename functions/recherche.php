@@ -17,7 +17,7 @@ if(!$twitter->search($terme)['status'])
 //Pas d'erreurs
 //on converti le résultat en objet
 $twitter->convert();
-
+$_SESSION['stats'] = serialize($twitter->getLang());
 //On le stocke dans la session
 $resultat = serialize($twitter->getResult());
 $_SESSION['recherche'] = $resultat;
