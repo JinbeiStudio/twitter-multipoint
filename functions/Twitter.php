@@ -17,10 +17,13 @@ class Twitter
         'format' => null
     ];
 
-    function __construct()
+    function __construct($token)
     {
         $this->url = 'https://api.twitter.com/1.1/search/tweets.json';
         $this->twitter = new TwitterAPIExchange(self::settings);
+        $this->token = $token;
+        //On vide le dossier lié au token
+        $this->deleteDirectory('tmp/' . $this->token);
     }
 
     //Effectue la recherche, renvoie un tableau où status indique la résolution de la recherche 
@@ -38,7 +41,7 @@ class Twitter
             $this->errors = $decode['errors'];
             $this->errors['url'] = $this->url . "?q=#" . $getfield;
             $this->result = [];
-            $this->result[] = new Tweet([]);
+            $this->result[] = new Tweet([],$this->token);
             return [
                 'status' => false,
                 'errors' => $this->errors,
@@ -58,7 +61,7 @@ class Twitter
         $newTab = [];
         if (isset($this->result['content']['statuses'])) {
             foreach ($this->result['content']['statuses'] as $tweet) {
-                $newTab[] = new Tweet($tweet);
+                $newTab[] = new Tweet($tweet, $this->token);
             }
         }
         $this->result['content'] = $newTab;
@@ -70,4 +73,28 @@ class Twitter
     {
         return $this->result['content'];
     }
+
+    private function deleteDirectory($dir) {
+        if (!file_exists($dir)) {
+            return true;
+        }
+    
+        if (!is_dir($dir)) {
+            return unlink($dir);
+        }
+    
+        foreach (scandir($dir) as $item) {
+            if ($item == '.' || $item == '..') {
+                continue;
+            }
+    
+            if (!$this->deleteDirectory($dir . DIRECTORY_SEPARATOR . $item)) {
+                return false;
+            }
+    
+        }
+    
+        return rmdir($dir);
+    }
+
 }
