@@ -29,7 +29,7 @@ class Tweet
     function loadImages()
     {
         $this->user["profile_image_temp"] = "./src/img/default_profile_400x400.png";
-        $this->user["profile_banner_temp"] = "./src/img/default_background_400x234.jpg";
+        $this->user["profile_banner_temp"] = "./src/img/default_background_400x133.jpg";
 
         if (!empty($this->user["profile_image_url"])) {
             $url = $this->user["profile_image_url"];
