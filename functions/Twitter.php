@@ -29,8 +29,7 @@ class Twitter
     //Effectue la recherche, renvoie un tableau où status indique la résolution de la recherche 
     public function search($getfield)
     {
-        $field = $this->unaccent($getfield);
-        $this->result['content'] = $this->twitter->setGetfield("?q=" . $field)
+        $this->result['content'] = $this->twitter->setGetfield("?q=" . $getfield)
             ->buildOauth($this->url, 'GET')
             ->performRequest();
         $this->result['format'] = 'json';
@@ -94,10 +93,27 @@ class Twitter
 
     private function unaccent($text)
     {
-        $search  = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'à', 'á', 'â', 'ã', 'ä', 'å', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ð', 'ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ');
-        $replace = array('A', 'A', 'A', 'A', 'A', 'A', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 'a', 'a', 'a', 'a', 'a', 'a', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y');
-
-        $resultat = str_replace($search, $replace, $text);
+        $search_replace  = [
+            'A'=>['À', 'Á', 'Â', 'Ã', 'Ä', 'Å'], 
+            'C'=>['Ç'],
+            'E'=>['È', 'É', 'Ê', 'Ë'], 
+            'I'=>['Ì', 'Í', 'Î', 'Ï'], 
+            'O'=>['Ò', 'Ó', 'Ô', 'Õ', 'Ö'], 
+            'U'=>['Ù', 'Ú', 'Û', 'Ü'],
+            'Y'=>['Ý'], 
+            'a'=>['à', 'á', 'â', 'ã', 'ä', 'å'], 
+            'c'=>['ç'],
+            'e'=>[ 'è', 'é', 'ê', 'ë'],
+            'i'=> ['ì', 'í', 'î', 'ï'], 
+            'o'=>['ð', 'ò', 'ó', 'ô', 'õ', 'ö'], 
+            'u'=>['ù', 'ú', 'û', 'ü'], 
+            'y'=>['ý', 'ÿ']
+        ];
+        $resultat = $text;
+        foreach($search_replace as $replace=>$search)
+        {
+            $resultat = str_replace($search,$replace, $resultat);
+        }
         return $resultat;
     }
 }
