@@ -12,6 +12,7 @@ require_once './views/component/header.php';
 
                 <input type="text" id="recherche" name="recherche" class="form-control" placeholder="Recherche" aria-label="search">
                 <input type="hidden" name="count" value="15">
+                <input type="hidden" name="page" value="index">
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">
                         <i class="fas fa-search"></i>

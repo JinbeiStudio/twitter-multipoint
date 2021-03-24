@@ -22,5 +22,10 @@ $resultat = serialize($twitter->getResult());
 $_SESSION['recherche'] = $resultat;
 
 //Redirection
-header("Location: ../index.php");
+if ($_SESSION['page'] == "index") {
+    header("Location: ../index.php");
+} elseif ($_SESSION['page'] == "stats") {
+    header("Location: ../stats.php");
+}
+
 exit();

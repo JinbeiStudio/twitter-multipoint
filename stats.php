@@ -5,13 +5,14 @@ require_once './views/component/header.php';
 ?>
 
 <main class="container mt-4">
-    <form action="./functions/recherchestats.php" method="post">
+    <form action="./functions/recherche.php" method="post">
         <div class="form-group">
             <label for="recherche">Tapez votre recherche</label>
             <div class="input-group mb-3">
 
                 <input type="text" id="recherche" name="recherche" class="form-control" placeholder="Recherche" aria-label="search">
                 <input type="hidden" name="count" value="15">
+                <input type="hidden" name="page" value="stats">
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">
                         <i class="fas fa-search"></i>

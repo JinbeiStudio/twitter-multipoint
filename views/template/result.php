@@ -1,29 +1,29 @@
 <?php $tweets = unserialize($_SESSION['recherche']); ?>
 
 <?php
-    //Affichage du nb de twweets trouvés ou message en cas de résultat nul
-    echo count($tweets) ? count($tweets).' Résultats' :  'Aucun résultat n\'as été trouvé. Elargissez votre recherche.';
+//Affichage du nb de twweets trouvés ou message en cas de résultat nul
+echo count($tweets) ? count($tweets) . ' Résultats' :  'Aucun résultat n\'as été trouvé. Elargissez votre recherche.';
 ?>
 
 
 <section class="d-flex flex-wrap justify-content-center">
 
-<?php
+    <?php
     //Boucle d'affichage des cartes de tweets
     foreach ($tweets as $tweet) {
 
         // Formattage des variables pour l'affichage et Chargement des images
         $tweet->display();
-?>
+    ?>
 
         <div class='card m-2' style='width: 18rem;'>
-<?php       
-                if ($tweet->user["profile_banner_temp"]) { 
-?>
+            <?php
+            if ($tweet->user["profile_banner_temp"]) {
+            ?>
                 <img src="<?php echo $tweet->user["profile_banner_temp"]; ?>" class="card-img-top" style="margin-bottom: -44px;">
-<?php 
-                } 
-?>
+            <?php
+            }
+            ?>
             <div class='card-body'>
                 <div class="userPicture">
                     <img src="<?php echo $tweet->user["profile_image_temp"]; ?>" class="rounded-circle mx-auto d-block shadow-sm" width="48" height="48" />
@@ -34,8 +34,8 @@
             </div><!-- .card-body -->
         </div><!-- .card -->
 
-<?php
+    <?php
     }
-?>
+    ?>
 
 </section>
