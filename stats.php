@@ -25,7 +25,7 @@ require_once './views/component/header.php';
     <?php if (isset($_SESSION['stats'])) { ?>
         <table id="statsTable" class="table table-striped">
             <thead>
-                <th>Code Pays</th>
+                <th>Code Langue</th>
                 <th>Nombre</th>
             </thead>
             <tbody>
