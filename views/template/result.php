@@ -20,13 +20,25 @@
         $userPicture = "./src/img/default_profile_400x400.png";
         if (!empty($tweet->user["profile_image_url"])) {
             $userPicture = $tweet->user["profile_image_url"];
-        }
-        if (!empty($tweet->user["profile_banner_url"])) {
-            $userBackground = $tweet->user["profile_banner_url"];
+            $parse = parse_url($userPicture);
+            if ($parse['host'] == 'abs.twimg.com') {
+                $fileName = '../src/img/default_profile_400x400.png';
+            } else {
+                $fileName = basename($userPicture);
+                file_put_contents('tmp/' . $fileName, file_get_contents($userPicture));
+            }
         }
 
-        $userBackground = $tweet->user["profile_banner_url"];
+        if (!empty($tweet->user["profile_banner_url"])) {
+            $url = $tweet->user["profile_banner_url"];
+            $userBackground = basename($url);
+            file_put_contents('tmp/' . $userBackground, file_get_contents($url));
+            $userBackground = 'tmp/' . $userBackground;
+        }
+
         $text = $tweet->text;
+
+
 
     ?>
 
@@ -34,10 +46,10 @@
 
         <div class='card m-2' style='width: 18rem;'>
             <?php if ($userBackground) { ?>
-                <img src="<?php echo $userBackground; ?>" class="card-img-top">
+                <img src="<?php echo $userBackground; ?>" class="card-img-top" style="margin-bottom: -44px;">
             <?php } ?>
             <div class='card-body'>
-                <div class="userPicture"><img src="<?php echo $userPicture; ?>" /></div>
+                <div class="userPicture"><img src="<?php echo 'tmp/' . $fileName; ?>" class="rounded-circle mx-auto d-block shadow-sm" width="48" height="48" /></div>
                 <h5 class='card-title'><?php echo $userName; ?></h5>
                 <h6><?php echo $created_at; ?></h6>
                 <p class='card-text'><?php echo $text; ?></p>
