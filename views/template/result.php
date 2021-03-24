@@ -17,33 +17,13 @@
 
         $userName = $tweet->user["name"];
 
-        $userPicture = "./src/img/default_profile_400x400.png";
-        if (!empty($tweet->user["profile_image_url"])) {
-            $url = $tweet->user["profile_image_url"];
-            $parse = parse_url($url);
-            if ($parse['host'] == 'abs.twimg.com') {
-                $userPicture = './src/img/default_profile_400x400.png';
-            } else {
-                $userPicture = basename($url);
-                file_put_contents('tmp/' . $userPicture, file_get_contents($url));
-                $userPicture = 'tmp/' . $userPicture;
-            }
-        }
-
-        if (!empty($tweet->user["profile_banner_url"])) {
-            $url = $tweet->user["profile_banner_url"];
-            $userBackground = basename($url);
-            file_put_contents('tmp/' . $userBackground, file_get_contents($url));
-            $userBackground = 'tmp/' . $userBackground;
-        }
-
         $text = $tweet->text;
 
-
-
+        //Chargement des images
+        $tweet->loadImages();
+        $userPicture = $tweet->user["profile_image_temp"];
+        $userBackground = $tweet->user["profile_banner_temp"];
     ?>
-
-
 
         <div class='card m-2' style='width: 18rem;'>
             <?php if ($userBackground) { ?>
