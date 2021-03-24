@@ -54,6 +54,26 @@ class Twitter
         ];
     }
 
+    public function getLang()
+    {
+        if($this->result['format'] === 'Tweet')
+        {
+            $ret = [];
+            foreach($this->result['content'] as $tweet)
+            {
+                
+                if(in_array ($tweet->lang, array_keys($ret)))
+                {
+                    $ret[$tweet->lang] += 1;
+                }
+                else
+                {
+                    $ret[$tweet->lang] = 1;
+                }
+            }
+            return $ret;
+        }
+    }
     //Converti le résultat de la recherche en Objects Tweets
     public function convert()
     {
