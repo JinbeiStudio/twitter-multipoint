@@ -15,7 +15,7 @@ class Twitter
     private $result = [
         'content' => null,
         'format' => null
-    ]; 
+    ];
 
     function __construct()
     {
@@ -26,16 +26,15 @@ class Twitter
     //Effectue la recherche, renvoie un tableau où status indique la résolution de la recherche 
     public function search($getfield)
     {
-        $this->result['content'] = $this->twitter->setGetfield("?q=#" . $getfield)
-                                                ->buildOauth($this->url, 'GET')
-                                                ->performRequest();
+        $this->result['content'] = $this->twitter->setGetfield("?q=" . $getfield)
+            ->buildOauth($this->url, 'GET')
+            ->performRequest();
         $this->result['format'] = 'json';
 
 
-        $decode = json_decode($this->result['content'],true);
+        $decode = json_decode($this->result['content'], true);
         //En cas d'erreurs, retourne le détail
-        if(isset($decode['errors']))
-        {
+        if (isset($decode['errors'])) {
             $this->errors = $decode['errors'];
             $this->errors['url'] = $this->url . "?q=#" . $getfield;
             $this->result = [];
@@ -55,12 +54,10 @@ class Twitter
     //Converti le résultat de la recherche en Objects Tweets
     public function convert()
     {
-        $this->result['content'] = json_decode($this->result['content'],true);
+        $this->result['content'] = json_decode($this->result['content'], true);
         $newTab = [];
-        if(isset($this->result['content']['statuses']))
-        {
-            foreach($this->result['content']['statuses'] as $tweet)
-            {
+        if (isset($this->result['content']['statuses'])) {
+            foreach ($this->result['content']['statuses'] as $tweet) {
                 $newTab[] = new Tweet($tweet);
             }
         }

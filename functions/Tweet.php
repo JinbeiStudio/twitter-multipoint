@@ -30,7 +30,7 @@ class Tweet
         //echo 'loadImages';
         $this->imgLoaded = true;
         $this->user["profile_image_temp"] = "./src/img/default_profile_400x400.png";
-        $this->user["profile_banner_temp"] = "./src/img/default_background_400x234.jpg";
+        $this->user["profile_banner_temp"] = "./src/img/default_background_400x133.jpg";
 
         //si une image de profil est présente
         if (!empty($this->user["profile_image_url"])) {
