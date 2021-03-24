@@ -7,8 +7,7 @@ $twitter = new Twitter($_SESSION['token']);
 $terme = $_POST['recherche'];
 $_SESSION['terme'] = $terme;
 //On fait la recherche et on affiche les éventuelles erreurs
-if(!$twitter->search($terme)['status'])
-{
+if (!$twitter->search($terme, 15)['status']) {
     //header("Location: ../index.php");
     print_r($twitter->errors);
     exit();
