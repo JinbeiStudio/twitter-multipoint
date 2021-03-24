@@ -29,7 +29,8 @@ class Twitter
     //Effectue la recherche, renvoie un tableau où status indique la résolution de la recherche 
     public function search($getfield)
     {
-        $this->result['content'] = $this->twitter->setGetfield("?q=" . $getfield)
+        $field = $this->unaccent($getfield);
+        $this->result['content'] = $this->twitter->setGetfield("?q=" . $field)
             ->buildOauth($this->url, 'GET')
             ->performRequest();
         $this->result['format'] = 'json';
@@ -41,7 +42,7 @@ class Twitter
             $this->errors = $decode['errors'];
             $this->errors['url'] = $this->url . "?q=#" . $getfield;
             $this->result = [];
-            $this->result[] = new Tweet([],$this->token);
+            $this->result[] = new Tweet([], $this->token);
             return [
                 'status' => false,
                 'errors' => $this->errors,
@@ -74,19 +75,29 @@ class Twitter
         return $this->result['content'];
     }
 
-    private function deleteDirectory($path) {
+    private function deleteDirectory($path)
+    {
         //Liste les noms des fichiers
         $files = glob('../' . $path . '/*');
 
         //Supprime les fichiers
-        foreach($files as $file){ // iterate files
-            if(is_file($file)) {
+        foreach ($files as $file) { // iterate files
+            if (is_file($file)) {
                 unlink($file); // delete file
             }
         }
         //suppression du dossier vide
-        if (is_dir('../' . $path)) { rmdir('../' . $path);}
-        
+        if (is_dir('../' . $path)) {
+            rmdir('../' . $path);
+        }
     }
 
+    private function unaccent($text)
+    {
+        $search  = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'à', 'á', 'â', 'ã', 'ä', 'å', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ð', 'ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ');
+        $replace = array('A', 'A', 'A', 'A', 'A', 'A', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 'a', 'a', 'a', 'a', 'a', 'a', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y');
+
+        $resultat = str_replace($search, $replace, $text);
+        return $resultat;
+    }
 }
