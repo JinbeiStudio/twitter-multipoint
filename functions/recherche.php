@@ -1,11 +1,8 @@
 <?php
 session_start();
 require_once 'Twitter.php';
+require_once 'tokenGen.php';
 
-if(!isset($_SESSION['token']))
-{
-    $_SESSION['token'] = 't_' . rand(0,999999);
-}
 $twitter = new Twitter($_SESSION['token']);
 $terme = htmlentities($_POST['recherche']);
 $_SESSION['terme'] = $terme;

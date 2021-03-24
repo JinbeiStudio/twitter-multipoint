@@ -74,27 +74,19 @@ class Twitter
         return $this->result['content'];
     }
 
-    private function deleteDirectory($dir) {
-        if (!file_exists($dir)) {
-            return true;
-        }
-    
-        if (!is_dir($dir)) {
-            return unlink($dir);
-        }
-    
-        foreach (scandir($dir) as $item) {
-            if ($item == '.' || $item == '..') {
-                continue;
+    private function deleteDirectory($path) {
+        //Liste les noms des fichiers
+        $files = glob('../' . $path . '/*');
+
+        //Supprime les fichiers
+        foreach($files as $file){ // iterate files
+            if(is_file($file)) {
+                unlink($file); // delete file
             }
-    
-            if (!$this->deleteDirectory($dir . DIRECTORY_SEPARATOR . $item)) {
-                return false;
-            }
-    
         }
-    
-        return rmdir($dir);
+        //suppression du dossier vide
+        if (is_dir('../' . $path)) { rmdir('../' . $path);}
+        
     }
 
 }
