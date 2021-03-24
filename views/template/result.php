@@ -1,8 +1,16 @@
+<?php $tweets = unserialize($_SESSION['recherche']); ?>
+
+<?php
+    //Affichage du nb de twweets trouvés ou message en cas de résultat nul
+    echo count($tweets) ? count($tweets).' Résultats' :  'Aucun résultat n\'as été trouvé. Elargissez votre recherche.';
+?>
+
 
 <section class="d-flex flex-wrap justify-content-center">
 
 <?php
-    foreach (unserialize($_SESSION['recherche']) as $tweet) {
+    //Boucle d'affichage des cartes de tweets
+    foreach ($tweets as $tweet) {
 
         // Formattage des variables pour l'affichage et Chargement des images
         $tweet->display();

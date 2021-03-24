@@ -2,7 +2,7 @@
 class Tweet
 {
     
-    function __construct($datas)
+    function __construct($datas,$token)
     {
         //Pour chaque champs récupérés, on crée un attribut
         foreach ($datas as $field => $data) {
@@ -10,6 +10,7 @@ class Tweet
         }
 
         $this->imgLoaded = false;
+        $this->token = $token;
     }
 
     function display()
@@ -27,8 +28,9 @@ class Tweet
 
     function loadImages()
     {
-        //echo 'loadImages';
         $this->imgLoaded = true;
+
+        //Valeurs par défauts
         $this->user["profile_image_temp"] = "./src/img/default_profile_400x400.png";
         $this->user["profile_banner_temp"] = "./src/img/default_background_400x133.jpg";
 
@@ -41,8 +43,15 @@ class Tweet
             if ($parse['host'] !== 'abs.twimg.com') {
                 //On la rename et on la sauvegarde
                 $userPicture = basename($url);
-                file_put_contents('tmp/' . $userPicture, file_get_contents($url));
-                $this->user["profile_image_temp"] = 'tmp/' . $userPicture;
+
+                //On crée le fichier s'il n'existe pas
+                if (!is_dir('tmp/' . $this->token)) {mkdir('tmp/' . $this->token);}
+
+                //On déplace le fichier
+                file_put_contents('tmp/' . $this->token . '/' . $userPicture, file_get_contents($url));
+
+                //On mémorise l'emplacement du fichier
+                $this->user["profile_image_temp"] = 'tmp/' . $this->token . '/' . $userPicture;
             }
         }
 
@@ -50,8 +59,15 @@ class Tweet
         if (!empty($this->user["profile_banner_url"])) {
             $url = $this->user["profile_banner_url"];
             $userBackground = basename($url);
-            file_put_contents('tmp/' . $userBackground, file_get_contents($url));
-            $this->user["profile_banner_temp"] = 'tmp/' . $userBackground;
+
+            //On crée le fichier s'il n'existe pas
+            if (!is_dir('tmp/' . $this->token)) { mkdir('tmp/' . $this->token);}
+
+            //On déplace le fichier
+            file_put_contents('tmp/' . $this->token . '/' . $userBackground, file_get_contents($url));
+
+            //On mémorise l'emplacement du fichier
+            $this->user["profile_banner_temp"] = 'tmp/' . $this->token . '/' . $userBackground;
         }
     }
 

@@ -2,9 +2,13 @@
 session_start();
 require_once 'Twitter.php';
 
-$twitter = new Twitter();
+if(!isset($_SESSION['token']))
+{
+    $_SESSION['token'] = 't_' . rand(0,999999);
+}
+$twitter = new Twitter($_SESSION['token']);
 $terme = htmlentities($_POST['recherche']);
-
+$_SESSION['terme'] = $terme;
 //On fait la recherche et on affiche les éventuelles erreurs
 if(!$twitter->search($terme)['status'])
 {
