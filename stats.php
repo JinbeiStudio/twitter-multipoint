@@ -21,4 +21,34 @@ require_once './views/component/header.php';
             </div>
         </div>
     </form>
+    <?php if (isset($_SESSION['stats'])) { ?>
+        <table id="statsTable" class="table table-striped">
+            <thead>
+                <th>Code Pays</th>
+                <th>Nombre</th>
+            </thead>
+            <tbody>
+                <?php foreach (unserialize($_SESSION['stats']) as $key => $value) { ?>
+                    <tr>
+                        <td><?php echo $key ?></td>
+                        <td><?php echo $value ?></td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    <?php } ?>
 </main>
+<?php
+require_once './views/component/footer.php';
+?>
+<script>
+    $(document).ready(function() {
+        $('#statsTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: ['excel', 'pdf', 'print'],
+            language: {
+                url: 'traductions/french.json'
+            }
+        });
+    });
+</script>
