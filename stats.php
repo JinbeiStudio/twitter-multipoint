@@ -44,7 +44,16 @@ require_once './views/component/header.php';
         $labels = json_encode($labels);
         $datasets = json_encode($datasets);
         ?>
-        <canvas id="myChart" width="400" height="400"></canvas>
+        <div class="row mt-5 mb-5">
+            <div class="col-md-6 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <canvas id="myChart" width="400" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     <?php } ?>
 </main>
 <?php
@@ -72,6 +81,13 @@ require_once './views/component/footer.php';
                 data: datasets
             }],
             labels: labels
+        },
+        options: {
+            plugins: {
+                colorschemes: {
+                    scheme: 'office.BlueWarm6'
+                }
+            }
         }
     });
 </script>
