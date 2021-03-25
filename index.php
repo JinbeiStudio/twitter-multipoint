@@ -22,7 +22,7 @@ require_once './views/component/header.php';
         </div>
     </form>
 
-    <p><?php echo (isset($_SESSION['terme'])) ? 'Résultats pour : ' . $_SESSION['terme'] : '' ?></p>
+    <p class="text-primary"><?php echo (isset($_SESSION['terme'])) ? 'Résultats pour : ' . $_SESSION['terme'] : '' ?></p>
 
     <?php
 

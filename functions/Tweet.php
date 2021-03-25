@@ -1,8 +1,8 @@
 <?php
 class Tweet
 {
-    
-    function __construct($datas,$token)
+
+    function __construct($datas, $token)
     {
         //Pour chaque champs récupérés, on crée un attribut
         foreach ($datas as $field => $data) {
@@ -16,14 +16,15 @@ class Tweet
     function display()
     {
         //On charge les images si besoin
-        if(!$this->imgLoaded){$this->loadImages();}
+        if (!$this->imgLoaded) {
+            $this->loadImages();
+        }
 
         //Affecte les variables necessaires à l'affichage du tweet avec des valeurs par défaut en cas d'absence
         $this->name = ($this->user["name"] ?: 'pas de nom');
         $this->text = ($this->text ?: 'pas de texte');
         $this->created_at = ($this->created_at ? new DateTime($this->created_at) : 'Pas de date');
         $this->created_at = (gettype($this->created_at) === 'string' ?: $this->created_at->format('Y-m-d H:i:s'));
-
     }
 
     function loadImages()
@@ -45,7 +46,9 @@ class Tweet
                 $userPicture = basename($url);
 
                 //On crée le fichier s'il n'existe pas
-                if (!is_dir('tmp/' . $this->token)) {mkdir('tmp/' . $this->token);}
+                if (!is_dir('tmp/' . $this->token)) {
+                    mkdir('tmp/' . $this->token);
+                }
 
                 //On déplace le fichier
                 file_put_contents('tmp/' . $this->token . '/' . $userPicture, file_get_contents($url));
@@ -61,13 +64,15 @@ class Tweet
             $userBackground = basename($url);
 
             //On crée le fichier s'il n'existe pas
-            if (!is_dir('tmp/' . $this->token)) { mkdir('tmp/' . $this->token);}
+            if (!is_dir('tmp/' . $this->token)) {
+                mkdir('tmp/' . $this->token);
+            }
 
             //On déplace le fichier
-            file_put_contents('tmp/' . $this->token . '/' . $userBackground, file_get_contents($url));
-
-            //On mémorise l'emplacement du fichier
-            $this->user["profile_banner_temp"] = 'tmp/' . $this->token . '/' . $userBackground;
+            if (file_put_contents('tmp/' . $this->token . '/' . $userBackground, file_get_contents($url))) {
+                //On mémorise l'emplacement du fichier
+                $this->user["profile_banner_temp"] = 'tmp/' . $this->token . '/' . $userBackground;
+            }
         }
     }
 

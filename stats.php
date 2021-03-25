@@ -2,6 +2,7 @@
 require_once './functions/Twitter.php';
 require_once './views/component/head.php';
 require_once './views/component/header.php';
+$tweets = unserialize($_SESSION['recherche']);
 ?>
 
 <main class="container mt-4">
@@ -21,7 +22,7 @@ require_once './views/component/header.php';
             </div>
         </div>
     </form>
-    <p><?php echo (isset($_SESSION['terme'])) ? 'Résultats pour : ' . $_SESSION['terme'] : '' ?></p>
+    <p class="text-primary"><?php echo (isset($_SESSION['terme'])) ? 'Résultats pour : ' . $_SESSION['terme'] : '' ?></p>
     <?php if (isset($_SESSION['stats'])) { ?>
         <table id="statsTable" class="table table-striped">
             <thead>
@@ -32,7 +33,7 @@ require_once './views/component/header.php';
                 <?php foreach (unserialize($_SESSION['stats']) as $key => $value) { ?>
                     <tr>
                         <td><?php echo $key ?></td>
-                        <td><?php echo $value ?></td>
+                        <td><?php echo round($value / count($tweets) * 100, 2) . "%" ?></td>
                     </tr>
                 <?php } ?>
             </tbody>
@@ -40,7 +41,7 @@ require_once './views/component/header.php';
         <?php
         foreach (unserialize($_SESSION["stats"]) as $key => $value) {
             $labels[] = $key;
-            $datasets[] = $value;
+            $datasets[] = round($value / count($tweets) * 100, 2);
         }
         $labels = json_encode($labels);
         $datasets = json_encode($datasets);
