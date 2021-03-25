@@ -76,7 +76,7 @@ class Twitter
     public function translate($code)
     {
         if (!$this->languages[$code]) {
-            return 'Autre';
+            return 'Code langue : ' . $code;
         }
         return $this->languages[$code];
     }

@@ -1,7 +1,7 @@
 <?php $tweets = unserialize($_SESSION['recherche']); ?>
 
 
-<section class="d-flex flex-wrap justify-content-center">
+<section class="d-flex flex-wrap justify-content-center mb-3">
 
     <?php
     //Boucle d'affichage des cartes de tweets
