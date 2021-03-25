@@ -26,14 +26,14 @@ $tweets = unserialize($_SESSION['recherche']);
     <?php if (isset($_SESSION['stats'])) { ?>
         <table id="statsTable" class="table table-striped">
             <thead>
-                <th>Code Langue</th>
+                <th>Langue</th>
                 <th>Nombre</th>
             </thead>
             <tbody>
                 <?php foreach (unserialize($_SESSION['stats']) as $key => $value) { ?>
                     <tr>
                         <td><?php echo $key ?></td>
-                        <td><?php echo round($value / count($tweets) * 100, 2) . "%" ?></td>
+                        <td><?php echo round($value / count($tweets) * 100, 2) . " %" ?></td>
                     </tr>
                 <?php } ?>
             </tbody>
