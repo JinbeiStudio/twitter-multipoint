@@ -21,7 +21,7 @@ require_once './views/component/header.php';
             </div>
         </div>
     </form>
-    <p><?php echo (isset($_SESSION['terme'])) ? 'Résultats pour : ' . $_SESSION['terme'] : '' ?></p>
+    <p class="text-primary"><?php echo (isset($_SESSION['terme'])) ? 'Résultats pour : ' . $_SESSION['terme'] : '' ?></p>
     <?php if (isset($_SESSION['stats'])) { ?>
         <table id="statsTable" class="table table-striped">
             <thead>
