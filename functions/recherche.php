@@ -2,8 +2,9 @@
 session_start();
 require_once 'Twitter.php';
 require_once 'tokenGen.php';
+require_once('languages.php');
 
-$twitter = new Twitter($_SESSION['token']);
+$twitter = new Twitter($_SESSION['token'], $languages);
 $terme = $_POST['recherche'];
 $_SESSION['terme'] = $terme;
 //On fait la recherche et on affiche les éventuelles erreurs
