@@ -51,10 +51,14 @@ class Tweet
                 }
 
                 //On déplace le fichier
-                file_put_contents('tmp/' . $this->token . '/' . $userPicture, file_get_contents($url));
+                $path = 'tmp/' . $this->token . '/' . $userPicture;
+                if(!file_exists($path))
+                {
+                    file_put_contents($path, file_get_contents($url));
+                }
 
                 //On mémorise l'emplacement du fichier
-                $this->user["profile_image_temp"] = 'tmp/' . $this->token . '/' . $userPicture;
+                $this->user["profile_image_temp"] = $path;
             }
         }
 
@@ -69,11 +73,15 @@ class Tweet
             }
 
             //On déplace le fichier
-            if (file_put_contents('tmp/' . $this->token . '/' . $userBackground, file_get_contents($url))) {
+             //On déplace le fichier
+             $path = 'tmp/' . $this->token . '/' . $userBackground;
+}
+            if ((!file_exists($path) && file_put_contents($path, file_get_contents($url))) || file_exists($path)) 
+            {
                 //On mémorise l'emplacement du fichier
-                $this->user["profile_banner_temp"] = 'tmp/' . $this->token . '/' . $userBackground;
+                $this->user["profile_banner_temp"] = $path;
             }
-        }
+        
     }
 
     function deleteImages()
