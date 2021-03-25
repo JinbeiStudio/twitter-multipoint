@@ -1,7 +1,7 @@
 <?php
 require_once('TwitterAPIExchange.php');
 require_once('Tweet.php');
-
+require_once('languages.php');
 
 class Twitter
 {
@@ -17,11 +17,12 @@ class Twitter
         'format' => null
     ];
 
-    function __construct($token)
+    function __construct($token, $languages)
     {
         $this->url = 'https://api.twitter.com/1.1/search/tweets.json';
         $this->twitter = new TwitterAPIExchange(self::settings);
         $this->token = $token;
+        $this->languages = $languages;
         //On vide le dossier lié au token
         $this->deleteDirectory('tmp/' . $this->token);
     }
@@ -56,24 +57,30 @@ class Twitter
 
     public function getLang()
     {
-        if($this->result['format'] === 'Tweet')
-        {
+        if ($this->result['format'] === 'Tweet') {
             $ret = [];
-            foreach($this->result['content'] as $tweet)
-            {
-                
-                if(in_array ($tweet->lang, array_keys($ret)))
-                {
-                    $ret[$tweet->lang] += 1;
-                }
-                else
-                {
-                    $ret[$tweet->lang] = 1;
+            foreach ($this->result['content'] as $tweet) {
+                $code = $tweet->lang;
+                $language = $this->translate($code);
+
+                if (in_array($language, array_keys($ret))) {
+                    $ret[$language] += 1;
+                } else {
+                    $ret[$language] = 1;
                 }
             }
             return $ret;
         }
     }
+
+    public function translate($code)
+    {
+        if (!$this->languages[$code]) {
+            return 'Autre';
+        }
+        return $this->languages[$code];
+    }
+
     //Converti le résultat de la recherche en Objects Tweets
     public function convert()
     {
