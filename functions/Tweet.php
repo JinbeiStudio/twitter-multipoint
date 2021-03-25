@@ -68,10 +68,14 @@ class Tweet
                 mkdir('tmp/' . $this->token);
             }
 
+            $content = @file_get_contents($url);
             //On déplace le fichier
-            if (file_put_contents('tmp/' . $this->token . '/' . $userBackground, file_get_contents($url))) {
-                //On mémorise l'emplacement du fichier
-                $this->user["profile_banner_temp"] = 'tmp/' . $this->token . '/' . $userBackground;
+
+            if ($content !== FALSE) {
+                $save = @file_put_contents('tmp/' . $this->token . '/' . $userBackground, $content);
+                if ($save !== FALSE) {
+                    $this->user["profile_banner_temp"] = 'tmp/' . $this->token . '/' . $userBackground;
+                }
             }
         }
     }
