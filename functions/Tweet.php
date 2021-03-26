@@ -24,7 +24,7 @@ class Tweet
         $this->name = ($this->user["name"] ?: 'pas de nom');
         $this->text = ($this->text ?: 'pas de texte');
         $this->created_at = ($this->created_at ? new DateTime($this->created_at) : 'Pas de date');
-        $this->created_at = (gettype($this->created_at) === 'string' ?: $this->created_at->format('Y-m-d H:i:s'));
+        $this->created_at = (gettype($this->created_at) === 'string' ?: $this->created_at->format('d/m/Y H:i:s'));
     }
 
     function loadImages()
