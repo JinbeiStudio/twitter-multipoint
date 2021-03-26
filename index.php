@@ -4,6 +4,7 @@ require_once './views/component/head.php';
 require_once './views/component/header.php';
 ?>
 <main class="container mt-4">
+    <h2 class="my-4">Rechercher des tweets par mots clés</h2>
 
     <form action="./functions/recherche.php" method="post">
         <div class="form-group">
@@ -22,13 +23,14 @@ require_once './views/component/header.php';
         </div>
     </form>
 
-    <p class="text-primary"><?php echo (isset($_SESSION['terme'])) ? 'Résultats pour : ' . $_SESSION['terme'] : '' ?></p>
+    <div class="d-flex justify-content-between">
+        <p class="text-primary"><?php echo (isset($_SESSION['terme'])) ? 'Résultats pour : ' . $_SESSION['terme'] : '' ?></p>
 
-    <?php
+        <?php
 
-    //Affiche le result si une recherche est présente sinon affiche no_search 
-    require_once  $_SESSION['recherche'] ? './views/template/result.php' : './views/template/no_search.php';
-    ?>
+        //Affiche le result si une recherche est présente sinon affiche no_search 
+        require_once  $_SESSION['recherche'] ? './views/template/result.php' : './views/template/no_search.php';
+        ?>
 
 </main>
 

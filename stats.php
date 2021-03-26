@@ -6,6 +6,7 @@ $tweets = unserialize($_SESSION['recherche']);
 ?>
 
 <main class="container mt-4">
+    <h2 class="my-4">Statistiques d'intérêt par langue</h2>
     <form action="./functions/recherche.php" method="post">
         <div class="form-group">
             <label for="recherche">Tapez votre recherche</label>
@@ -22,12 +23,19 @@ $tweets = unserialize($_SESSION['recherche']);
             </div>
         </div>
     </form>
-    <p class="text-primary"><?php echo (isset($_SESSION['terme'])) ? 'Résultats pour : ' . $_SESSION['terme'] : '' ?></p>
+    <div class="d-flex justify-content-between">
+        <p class="text-primary"><?php echo (isset($_SESSION['terme'])) ? 'Résultats pour : ' . $_SESSION['terme'] : '' ?></p>
+        <p> <?php if (isset($_SESSION['recherche'])) {
+                echo count($tweets) . " Résultats";
+            } else {
+                echo "<span class='font-weight-bold'>Pas de recherche effectuée</span>";
+            }; ?></p>
+    </div>
     <?php if (isset($_SESSION['stats'])) { ?>
         <table id="statsTable" class="table table-striped">
             <thead>
                 <th>Langue</th>
-                <th>Nombre</th>
+                <th>Proportion</th>
             </thead>
             <tbody>
                 <?php foreach (unserialize($_SESSION['stats']) as $key => $value) { ?>

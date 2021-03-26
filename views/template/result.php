@@ -1,9 +1,12 @@
 <?php $tweets = unserialize($_SESSION['recherche']); ?>
 
-<?php
-//Affichage du nb de twweets trouvés ou message en cas de résultat nul
-echo count($tweets) ? count($tweets) . ' Résultats' :  'Aucun résultat n\'as été trouvé. Elargissez votre recherche.';
-?>
+<p class="text-right">
+    <?php
+    //Affichage du nb de twweets trouvés ou message en cas de résultat nul
+    echo count($tweets) ? count($tweets) . ' Résultats' :  'Aucun résultat n\'as été trouvé. Elargissez votre recherche.';
+    ?>
+</p>
+</div>
 
 
 <section class="d-flex flex-wrap justify-content-center">
