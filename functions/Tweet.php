@@ -21,10 +21,14 @@ class Tweet
         }
 
         //Affecte les variables necessaires à l'affichage du tweet avec des valeurs par défaut en cas d'absence
-        $this->name = ($this->user["name"] ?: 'pas de nom');
+        $this->name = (trim($this->user["name"]) ?: 'pas de nom');
         $this->text = ($this->text ?: 'pas de texte');
+        $this->text = preg_replace('/(?:^|\s)#(\w+)/', ' <a href="https://twitter.com/search?q=%23$1">#$1</a>', $this->text);
         $this->created_at = ($this->created_at ? new DateTime($this->created_at) : 'Pas de date');
         $this->created_at = (gettype($this->created_at) === 'string' ?: $this->created_at->format('d/m/Y H:i:s'));
+        $this->hashtags = $this->entities["hashtags"];
+        $this->url = 'https://twitter.com/' . $this->user["screen_name"] . '/status/' . $this->id;
+        $this->favorite_count = ($this->retweeted_status) ? $this->retweeted_status["favorite_count"] : $this->favorite_count;
     }
 
     function loadImages()
