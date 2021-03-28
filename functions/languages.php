@@ -33,4 +33,7 @@ $languages = [
     "ca" => "Catalan",
     "ta" => "Tamoul",
     "et" => "Estonien",
+    "tl" => "Tagalog",
+    "cy" => "Gallois",
+    "ht" => "Créole haïtien"
 ];

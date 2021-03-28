@@ -1,4 +1,11 @@
 <footer>
+    <div class="footer-logo">
+        <img src="../../src/img/logo-twitter.svg" alt="Twitter" width="300" height="244" class="nav-logo" /> Twitter Project
+    </div>
+
+    <div>
+        <strong>Réalisation</strong>&nbsp;: Julien Gabriel, Emeric Durdos, Gabriel TAVERNIER
+    </div>
 
 </footer>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

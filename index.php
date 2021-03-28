@@ -22,7 +22,13 @@ require_once './views/component/header.php';
         </div>
     </form>
 
-    <p class="text-primary"><?php echo (isset($_SESSION['terme'])) ? 'Résultats pour : ' . $_SESSION['terme'] : '' ?></p>
+    <p class="text-primary">
+        <?php
+        $tweets = unserialize($_SESSION['recherche']);
+        if (isset($_SESSION['terme'])) {
+            echo count($tweets) ? count($tweets) . ' Résultats pour "' . $_SESSION['terme'] . '" :' :  'Aucun résultat n\'as été trouvé. Elargissez votre recherche.';
+        }
+        ?></p>
 
     <?php
 

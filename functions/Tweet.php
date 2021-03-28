@@ -45,7 +45,7 @@ class Tweet
                 //On la rename et on la sauvegarde
                 $userPicture = basename($url);
 
-                //On crée le fichier s'il n'existe pas
+                //On crée le dossier s'il n'existe pas
                 if (!is_dir('tmp/' . $this->token)) {
                     mkdir('tmp/' . $this->token);
                 }
@@ -67,20 +67,39 @@ class Tweet
             $url = $this->user["profile_banner_url"];
             $userBackground = basename($url);
 
-            //On crée le fichier s'il n'existe pas
+            //On crée le dossier s'il n'existe pas
             if (!is_dir('tmp/' . $this->token)) {
                 mkdir('tmp/' . $this->token);
             }
 
-            //On déplace le fichier
-             //On déplace le fichier
-             $path = 'tmp/' . $this->token . '/' . $userBackground;
-}
-            if ((!file_exists($path) && file_put_contents($path, file_get_contents($url))) || file_exists($path)) 
+            //On détermine le chemin du fichier
+            $path = 'tmp/' . $this->token . '/' . $userBackground;
+
+            //Si le fichier n'existe pas
+            if (!file_exists($path)) 
+            {
+                //On stocke l'image récupérée
+                $content = @file_get_contents($url);
+
+                //si l'image à bien été récupérée
+                if ($content !== FALSE) {
+                    $save = @file_put_contents($path, $content);
+                    if ($save !== FALSE) {
+                        //On mémorise l'emplacement du fichier
+                        $this->user["profile_banner_temp"] =  $path;
+                    }
+                }
+                
+                
+                    
+            }
+            elseif(file_exists($path))
             {
                 //On mémorise l'emplacement du fichier
                 $this->user["profile_banner_temp"] = $path;
             }
+            
+        }
         
     }
 
