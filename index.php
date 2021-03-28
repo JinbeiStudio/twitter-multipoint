@@ -3,7 +3,7 @@ require_once './functions/Twitter.php';
 require_once './views/component/head.php';
 require_once './views/component/header.php';
 ?>
-<main class="container mt-4">
+<main class="container-xl mt-4">
     <h2 class="my-4">Rechercher des tweets par mots clés</h2>
 
     <form action="./functions/recherche.php" method="post">

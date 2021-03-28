@@ -44,6 +44,11 @@ footer {
   height: auto;
 }
 
+/* TWITTER-CARD */
+.twitter-card {
+  width: 22rem;
+}
+
 .card-img-top-perso {
   height: 0;
   padding-top: 33.33%;
@@ -53,13 +58,25 @@ footer {
   background-size: cover;
   background-repeat: no-repeat;
 }
-.twitter-card {
-  max-width: 31%;
-  min-width: 18rem;
-}
 .card-footer > span {
   margin-right: 1em;
 }
 .card-footer .mdi::before {
   margin-right: 0.2em;
+}
+@media (max-width: 1140px) {
+  .twitter-card {
+    width: 31%;
+  }
+}
+@media (max-width: 768px) {
+  .twitter-card {
+    width: 47%;
+  }
+}
+
+@media (max-width: 576px) {
+  .twitter-card {
+    width: 100%;
+  }
 }
