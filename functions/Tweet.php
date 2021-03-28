@@ -20,11 +20,47 @@ class Tweet
             $this->loadImages();
         }
 
+
+
+
         //Affecte les variables necessaires à l'affichage du tweet avec des valeurs par défaut en cas d'absence
-        $this->name = ($this->user["name"] ?: 'pas de nom');
-        $this->text = ($this->text ?: 'pas de texte');
+        $this->name = (trim($this->user["name"]) ?: 'pas de nom');
         $this->created_at = ($this->created_at ? new DateTime($this->created_at) : 'Pas de date');
-        $this->created_at = (gettype($this->created_at) === 'string' ?: $this->created_at->format('Y-m-d H:i:s'));
+        $this->created_at = (gettype($this->created_at) === 'string' ?: $this->created_at->format('d/m/Y H:i:s'));
+
+        // Tweet ou RT
+        $this->text = ($this->full_text ?: 'pas de texte');
+        if ($this->retweeted_status) {
+            $this->text = 'RT <a href="https://twitter.com/' . str_replace(' ', '_', $this->retweeted_status["user"]["name"]) . '">@' . $this->retweeted_status["user"]["name"] . '</a>&nbsp;: ' . $this->retweeted_status["full_text"];
+        }
+        // Ajout des #hastags
+        $this->text = preg_replace('/(?:^|\s)#([0-9A-Za-zÀ-ÖØ-öø-ÿ_]+)/', ' <a href="https://twitter.com/search?q=%23$1">#$1</a>', $this->text);
+        // Ajout des @utilisateur
+        $this->text = preg_replace('/(?:^|\s)@(\w+)/', ' <a href="https://twitter.com/$1">@$1</a>', $this->text);
+        // Ajout des liens
+        $this->text = preg_replace('/(?:^|\s)https:\/\/t.co\/(\w+)/', ' <a target="_blank" href="https://t.co/$1">https://t.co/$1</a>', $this->text);
+
+
+        /* Gestion des Citations (RT avec commentaires) */
+        if ($this->quoted_status["full_text"]) {
+            $this->quote = true;
+            $this->quote_user = $this->quoted_status["user"]["name"];
+            $this->quote_text = preg_replace('/(?:^|\s)#(\w+)/', ' <a href="https://twitter.com/search?q=%23$1">#$1</a>', $this->quoted_status["full_text"]);
+            $this->quote_text = preg_replace('/(?:^|\s)@(\w+)/', ' <a href="https://twitter.com/$1">@$1</a>', $this->quote_text);
+        }
+        /* Gestio des Citations dans un RT */
+        if ($this->retweeted_status["is_quote_status"]) {
+            $this->RT_quote = true;
+            $this->RT_quote_user = $this->retweeted_status["quoted_status"]["user"]["name"];
+            $this->RT_quote_text = preg_replace('/(?:^|\s)#(\w+)/', ' <a href="https://twitter.com/search?q=%23$1">#$1</a>', $this->retweeted_status["quoted_status"]["full_text"]);
+            $this->RT_quote_text = preg_replace('/(?:^|\s)@(\w+)/', ' <a href="https://twitter.com/$1">@$1</a>', $this->RT_quote_text);
+        }
+
+        /* Gestion du footer */
+        // URL du tweet d'origine
+        $this->url = 'https://twitter.com/' . $this->user["screen_name"] . '/status/' . $this->id;
+        // Nombre du like 
+        $this->favorite_count = ($this->retweeted_status) ? $this->retweeted_status["favorite_count"] : $this->favorite_count;
     }
 
     function loadImages()

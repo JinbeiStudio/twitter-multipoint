@@ -30,8 +30,7 @@ class Twitter
     //Effectue la recherche, renvoie un tableau où status indique la résolution de la recherche 
     public function search($getfield, $count)
     {
-        //echo 'recherche';
-        $this->result['content'] = $this->twitter->setGetfield("?q=" . $getfield . "&count=" . $count)
+        $this->result['content'] = $this->twitter->setGetfield("?q=" . $getfield . "&count=" . $count . "&tweet_mode=extended&f=live")
             ->buildOauth($this->url, 'GET')
             ->performRequest();
         $this->result['format'] = 'json';

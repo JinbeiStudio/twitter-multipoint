@@ -43,3 +43,23 @@ footer {
   max-width: 20px;
   height: auto;
 }
+
+.card-img-top-perso {
+  height: 0;
+  padding-top: 33.33%;
+  margin-bottom: -44px;
+
+  background-position: center top;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.twitter-card {
+  max-width: 31%;
+  min-width: 18rem;
+}
+.card-footer > span {
+  margin-right: 1em;
+}
+.card-footer .mdi::before {
+  margin-right: 0.2em;
+}
