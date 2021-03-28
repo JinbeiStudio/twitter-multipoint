@@ -16,8 +16,8 @@
         /* echo '<pre>';
         print_r($tweet);
         echo '</pre>';
-        exit();
- */
+        exit(); */
+
         // Formattage des variables pour l'affichage et Chargement des images
         $tweet->display();
     ?>
@@ -30,6 +30,7 @@
             <?php
             }
             ?>
+
             <div class='card-body'>
                 <div class="userPicture">
                     <img src="<?php echo $tweet->user["profile_image_temp"]; ?>" class="rounded-circle mx-auto d-block shadow-sm" width="48" height="48" />
@@ -37,15 +38,19 @@
                 <h5 class='card-title'><?php echo $tweet->name; ?></h5>
                 <h6><?php echo $tweet->created_at; ?></h6>
                 <p class='card-text'><?php echo $tweet->text; ?></p>
-                <?php foreach ($tweet->hashtags as $hashtag) { ?>
-                    <a href="https://twitter.com/search?q=%23<?php echo $hashtag["text"]; ?>" title="<?php echo $hashtag["text"]; ?>" target="_blank">#<?php echo $hashtag["text"]; ?></a>
+                <!-- Citation -->
+                <?php if ($tweet->quote) { ?>
+                    <div class="border border-secondary rounded p-2">
+                        <?php echo $tweet->quote_user; ?>&nbsp;: <br />
+                        <?php echo $tweet->quote_text; ?>
+                    </div>
                 <?php } ?>
-
             </div><!-- .card-body -->
-            <div class="card-footer">
+
+            <div class="card-footer d-flex flex-row">
                 <span class="mdi mdi-heart-outline"><?php echo $tweet->favorite_count; ?></span>
                 <span class="mdi mdi-repeat mdi-rotate-90"><?php echo $tweet->retweet_count; ?></span>
-                <a href="<?php echo $tweet->url; ?>">link</a>
+                <a href="<?php echo $tweet->url; ?>" target="_blank" class="ml-auto mdi mdi-open-in-new">Twitter</a>
             </div>
             <!-- .card-footer -->
         </div><!-- .card -->
