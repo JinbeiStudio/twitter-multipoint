@@ -41,7 +41,7 @@
                     <img src="<?php echo $tweet->user["profile_image_temp"]; ?>" class="rounded-circle mx-auto d-block shadow-sm" width="48" height="48" />
                 </div>
                 <h5 class='card-title'><?php echo $tweet->name; ?></h5>
-                <h6><?php echo $tweet->created_at; ?></h6>
+                <time><?php echo $tweet->created_at; ?></time>
                 <p class='card-text'><?php echo $tweet->text; ?></p>
                 <!-- Citation -->
                 <?php if ($tweet->quote) { ?>

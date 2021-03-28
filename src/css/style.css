@@ -1,15 +1,22 @@
 :root {
   --twitter: #1da1f2;
+  --user: #f472b6;
+  --hastag: #1e40af;
 }
 * {
   box-sizing: border-box;
 }
+a.hashtag {
+  color: var(--hastag);
+}
+a.user {
+  color: var(--user);
+}
+
 body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
-main {
 }
 
 .navbar span.logo {
@@ -47,6 +54,15 @@ footer {
 /* TWITTER-CARD */
 .twitter-card {
   width: 22rem;
+}
+.twitter-card h5 {
+  margin-bottom: 0;
+}
+.twitter-card time {
+  display: block;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.5);
+  margin-bottom: 0.7em;
 }
 
 .card-img-top-perso {
