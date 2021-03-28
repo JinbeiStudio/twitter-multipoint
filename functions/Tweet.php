@@ -34,18 +34,26 @@ class Tweet
             $this->text = 'RT <a href="https://twitter.com/' . str_replace(' ', '_', $this->retweeted_status["user"]["name"]) . '">@' . $this->retweeted_status["user"]["name"] . '</a>&nbsp;: ' . $this->retweeted_status["full_text"];
         }
         // Ajout des #hastags
-        $this->text = preg_replace('/(?:^|\s)#([0-9A-Za-zÀ-ÖØ-öø-ÿ]+)/', ' <a href="https://twitter.com/search?q=%23$1">#$1</a>', $this->text);
+        $this->text = preg_replace('/(?:^|\s)#([0-9A-Za-zÀ-ÖØ-öø-ÿ_]+)/', ' <a href="https://twitter.com/search?q=%23$1">#$1</a>', $this->text);
         // Ajout des @utilisateur
         $this->text = preg_replace('/(?:^|\s)@(\w+)/', ' <a href="https://twitter.com/$1">@$1</a>', $this->text);
         // Ajout des liens
         $this->text = preg_replace('/(?:^|\s)https:\/\/t.co\/(\w+)/', ' <a target="_blank" href="https://t.co/$1">https://t.co/$1</a>', $this->text);
 
 
-        /* Gestion des Citation (RT avec commentaires) */
-        if ($this->is_quote_status) {
+        /* Gestion des Citations (RT avec commentaires) */
+        if ($this->quoted_status["full_text"]) {
             $this->quote = true;
             $this->quote_user = $this->quoted_status["user"]["name"];
             $this->quote_text = preg_replace('/(?:^|\s)#(\w+)/', ' <a href="https://twitter.com/search?q=%23$1">#$1</a>', $this->quoted_status["full_text"]);
+            $this->quote_text = preg_replace('/(?:^|\s)@(\w+)/', ' <a href="https://twitter.com/$1">@$1</a>', $this->quote_text);
+        }
+        /* Gestio des Citations dans un RT */
+        if ($this->retweeted_status["is_quote_status"]) {
+            $this->RT_quote = true;
+            $this->RT_quote_user = $this->retweeted_status["quoted_status"]["user"]["name"];
+            $this->RT_quote_text = preg_replace('/(?:^|\s)#(\w+)/', ' <a href="https://twitter.com/search?q=%23$1">#$1</a>', $this->retweeted_status["quoted_status"]["full_text"]);
+            $this->RT_quote_text = preg_replace('/(?:^|\s)@(\w+)/', ' <a href="https://twitter.com/$1">@$1</a>', $this->RT_quote_text);
         }
 
         /* Gestion du footer */

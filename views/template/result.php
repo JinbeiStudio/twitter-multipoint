@@ -9,14 +9,18 @@
 </div>
 
 <section class="d-flex flex-wrap justify-content-center mb-3">
+    <?php foreach ($tweets as $tweet) {
+        /* echo '<pre>';
+        print_r($tweet);
+        echo '</pre>'; */
+    }
+    ?>
+
 
     <?php
     //Boucle d'affichage des cartes de tweets
     foreach ($tweets as $tweet) {
-        /* echo '<pre>';
-        print_r($tweet);
-        echo '</pre>';
-        exit(); */
+
 
         // Formattage des variables pour l'affichage et Chargement des images
         $tweet->display();
@@ -44,6 +48,14 @@
                     <div class="border border-secondary rounded p-2">
                         <strong><?php echo $tweet->quote_user; ?>&nbsp;:</strong> <br />
                         <?php echo $tweet->quote_text; ?>
+                    </div>
+                <?php } ?>
+
+                <?php if ($tweet->RT_quote) { ?>
+                    <div class="border border-secondary rounded p-2">
+                        <strong><?php echo $tweet->RT_quote_user; ?>&nbsp;:</strong> <br />
+                        <?php echo $tweet->RT_quote_text;
+                        ?>
                     </div>
                 <?php } ?>
             </div><!-- .card-body -->
