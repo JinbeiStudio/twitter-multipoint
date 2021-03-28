@@ -41,7 +41,7 @@
                 <!-- Citation -->
                 <?php if ($tweet->quote) { ?>
                     <div class="border border-secondary rounded p-2">
-                        <?php echo $tweet->quote_user; ?>&nbsp;: <br />
+                        <strong><?php echo $tweet->quote_user; ?>&nbsp;:</strong> <br />
                         <?php echo $tweet->quote_text; ?>
                     </div>
                 <?php } ?>

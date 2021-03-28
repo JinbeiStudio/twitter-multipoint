@@ -34,9 +34,12 @@ class Tweet
             $this->text = 'RT <a href="https://twitter.com/' . str_replace(' ', '_', $this->retweeted_status["user"]["name"]) . '">@' . $this->retweeted_status["user"]["name"] . '</a>&nbsp;: ' . $this->retweeted_status["full_text"];
         }
         // Ajout des #hastags
-        $this->text = preg_replace('/(?:^|\s)#(\w+)/', ' <a href="https://twitter.com/search?q=%23$1">#$1</a>', $this->text);
+        $this->text = preg_replace('/(?:^|\s)#([0-9A-Za-zÀ-ÖØ-öø-ÿ]+)/', ' <a href="https://twitter.com/search?q=%23$1">#$1</a>', $this->text);
         // Ajout des @utilisateur
         $this->text = preg_replace('/(?:^|\s)@(\w+)/', ' <a href="https://twitter.com/$1">@$1</a>', $this->text);
+        // Ajout des liens
+        $this->text = preg_replace('/(?:^|\s)https:\/\/t.co\/(\w+)/', ' <a target="_blank" href="https://t.co/$1">https://t.co/$1</a>', $this->text);
+
 
         /* Gestion des Citation (RT avec commentaires) */
         if ($this->is_quote_status) {
