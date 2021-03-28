@@ -44,6 +44,15 @@ footer {
   height: auto;
 }
 
+.card-img-top-perso {
+  height: 0;
+  padding-top: 33.33%;
+  margin-bottom: -44px;
+
+  background-position: center top;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 .twitter-card {
   max-width: 31%;
   min-width: 18rem;

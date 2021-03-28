@@ -26,7 +26,8 @@
             <?php
             if ($tweet->user["profile_banner_temp"]) {
             ?>
-                <img src="<?php echo $tweet->user["profile_banner_temp"]; ?>" class="card-img-top" style="margin-bottom: -44px;">
+                <div class="card-img-top-perso" style="background-image: url(<?php echo $tweet->user["profile_banner_temp"]; ?>);">
+                </div><!-- .card-img-top-perso -->
             <?php
             }
             ?>
