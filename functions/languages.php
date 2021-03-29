@@ -35,5 +35,6 @@ $languages = [
     "et" => "Estonien",
     "tl" => "Tagalog",
     "cy" => "Gallois",
-    "ht" => "Créole haïtien"
+    "ht" => "Créole haïtien",
+    "und" => "Indéterminé"
 ];
