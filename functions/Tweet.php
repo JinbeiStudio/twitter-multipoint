@@ -29,29 +29,26 @@ class Tweet
         // Tweet ou RT
         $this->text = ($this->full_text ?: 'pas de texte');
         if ($this->retweeted_status) {
-            $this->text = 'RT <a href="https://twitter.com/' . str_replace(' ', '_', $this->retweeted_status["user"]["name"]) . '" class="user" target="_blank">@' . $this->retweeted_status["user"]["name"] . '</a>&nbsp;: ' . $this->retweeted_status["full_text"];
+            $this->text = 'RT @' . $this->retweeted_status["user"]["screen_name"] . '&nbsp;: ' . $this->retweeted_status["full_text"];
         }
-        // Ajout des #hastags
-        $this->text = preg_replace('/(?:^|\s)#([0-9A-Za-zÀ-ÖØ-öø-ÿ_]+)/', ' <a href="https://twitter.com/search?q=%23$1" class="hashtag" target="_blank">#$1</a>', $this->text);
-        // Ajout des @utilisateur
-        $this->text = preg_replace('/(?:^|\s)@(\w+)/', ' <a href="https://twitter.com/$1" class="user" target="_blank">@$1</a>', $this->text);
-        // Ajout des liens
-        $this->text = preg_replace('/(?:^|\s)https:\/\/t.co\/(\w+)/', ' <a href="https://t.co/$1" target="_blank">https://t.co/$1</a>', $this->text);
 
+        $this->linkifyHashtag('text'); // Ajout des liens sur les Hashtags
+        $this->linkifyAt('text'); // Ajout des liens sur le @utilisateur
+        $this->linkifyLink('text'); // Ajout des liens sur les liens
 
         /* Gestion des Citations (RT avec commentaires) */
         if ($this->quoted_status["full_text"]) {
             $this->quote = true;
             $this->quote_user = $this->quoted_status["user"]["name"];
-            $this->quote_text = preg_replace('/(?:^|\s)#([0-9A-Za-zÀ-ÖØ-öø-ÿ_]+)/', ' <a href="https://twitter.com/search?q=%23$1" class="hashtag" target="_blank">#$1</a>', $this->quoted_status["full_text"]);
-            $this->quote_text = preg_replace('/(?:^|\s)@(\w+)/', ' <a href="https://twitter.com/$1" class="user" target="_blank">@$1</a>', $this->quote_text);
+            $this->quote_text = $this->quoted_status["full_text"];
+            $this->linkifyHashtag('quote_text')->linkifyAt('quote_text')->linkifyLink('quote_text');
         }
-        /* Gestio des Citations dans un RT */
+        /* Gestion des Citations dans un RT */
         if ($this->retweeted_status["is_quote_status"]) {
             $this->RT_quote = true;
             $this->RT_quote_user = $this->retweeted_status["quoted_status"]["user"]["name"];
-            $this->RT_quote_text = preg_replace('/(?:^|\s)#([0-9A-Za-zÀ-ÖØ-öø-ÿ_]+)/', ' <a href="https://twitter.com/search?q=%23$1" class="hashtag" target="_blank">#$1</a>', $this->retweeted_status["quoted_status"]["full_text"]);
-            $this->RT_quote_text = preg_replace('/(?:^|\s)@(\w+)/', ' <a href="https://twitter.com/$1" class="user" target="_blank">@$1</a>', $this->RT_quote_text);
+            $this->RT_quote_text = $this->retweeted_status["quoted_status"]["full_text"];
+            $this->linkifyHashtag('RT_quote_text')->linkifyAt('RT_quote_text')->linkifyLink('RT_quote_text');
         }
 
         /* Gestion du footer */
@@ -141,5 +138,32 @@ class Tweet
             //On supprime l'image
             unlink($this->user["profile_banner_temp"]);
         }
+    }
+
+    /**
+     * @param string $key
+     */
+    private function linkifyHashtag($key)
+    {
+        $this->$key = preg_replace('/(?:^|\s)#([0-9A-Za-zÀ-ÖØ-öø-ÿ_]+)/', ' <a href="https://twitter.com/search?q=%23$1" class="hashtag" target="_blank">#$1</a>', $this->$key);
+        return $this;
+    }
+
+    /**
+     * @param string $key
+     */
+    private function linkifyAt($key)
+    {
+        $this->$key = preg_replace('/(?:^|\s)@(\w+)/', ' <a href="https://twitter.com/$1" class="user" target="_blank">@$1</a>', $this->$key);
+        return $this;
+    }
+
+    /**
+     * @param string $key
+     */
+    private function linkifyLink($key)
+    {
+        $this->$key = preg_replace('/(?:^|\s)https:\/\/t.co\/(\w+)/', ' <a href="https://t.co/$1" target="_blank">https://t.co/$1</a>', $this->$key);
+        return $this;
     }
 }
