@@ -32,8 +32,8 @@ class Tweet
             $this->text = 'RT @' . $this->retweeted_status["user"]["screen_name"] . '&nbsp;: ' . $this->retweeted_status["full_text"];
         }
 
-        $this->linkifyHashtag('text'); // Ajout des liens sur les Hashtags
-        $this->linkifyAt('text'); // Ajout des liens sur le @utilisateur
+        $this->linkifyHashtag('text'); // Ajout des liens sur les #hashtag
+        $this->linkifyAt('text'); // Ajout des liens sur les @utilisateur
         $this->linkifyLink('text'); // Ajout des liens sur les liens
 
         /* Gestion des Citations (RT avec commentaires) */
