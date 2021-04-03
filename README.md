@@ -11,12 +11,12 @@ Nous avons choisi de faire une application qui fournit le pourcentage des langue
 ## Mise en place de l’application
 Nous avons choisi de travailler sans framework back et de partir sur une programmation objet.
 
-Nous avons d’abord créer les classes Tweet et Twitter qui s’occupent respectivement du traitement d’un tweet et l’ensemble des résultats de la recherche.
+Nous avons d’abord créer les classes _Tweet_ et _Twitter_ qui s’occupent respectivement du traitement d’un tweet et l’ensemble des résultats de la recherche.
 
-Nous avons ensuite utilisé la classe Twitter pour faire une recherche et convertir le json de retour en tableau d’objets Tweets qui sont envoyés à la page pour les afficher.
-L’objet Tweet formate les données pour préparer l’affichage.
+Nous avons ensuite utilisé la classe _Twitter_ pour faire une recherche et convertir le json de retour en tableau d’objets Tweets qui sont envoyés à la page pour les afficher.
+L’objet _Tweet_ formate les données pour préparer l’affichage.
 
-Le domaine sur lequel twitter.com héberge les images de profil et de bannière sont automatiquement bloquées par certains navigateurs (firefox notamment) car ils considèrent qu’il s’agit de tracking. Nous devons donc les sauvegarder sur le serveur.
+Le domaine sur lequel _Twitter_ héberge les images de profil et de bannière sont automatiquement bloquées par certains navigateurs (firefox notamment) car ils considèrent qu’il s’agit de tracking. Nous devons donc les sauvegarder sur le serveur.
 
 ## Gestion des recherches
 Lors de la conversion du résultat de la recherche, on profite que la fonction balaye les éléments pour utiliser un tableau d’association des code langue pour créer un tableau qui met en relation les langues présentes dans la recherche avec leur nombre d’apparitions. Ce tableau est utilisé ensuite dans l’onglet analyse pour afficher les statistiques.
@@ -36,10 +36,10 @@ Et nous créons un nouveau dossier pour cet utilisateur où toutes les images qu
 Le téléchargement des images est uniquement effectué lorsque l’utilisateur demande l’affichage de tweets et si les fichiers n’existent pas déjà. Cela permet d'éviter des temps de chargement inutiles.
 
 ### Gestion du texte
-Lors d’une recherche standard l’objet renvoyé contenant les tweets contient un champ “text” dans lequel le contenu est tronqué. Nous avons donc ajouté le paramètre “tweet_mode=extended” dans notre requête afin d’obtenir le champ “full_text” dans l’objet renvoyé. 
-Malheureusement lors d’un ReTweet, le champ “full_text” est malgré tout tronqué. Le Tweet original au complet est disponible dans l’objet “retweeted_status.full_text”. Lors du formatage du texte soit on affiche le contenu du tweet soit on reconstruit le tweet avec le prefixe “@ RT["user"]["screen_name"] : “.
-Nous avons aussi ajouté la gestion des “citations” qui sont des Retweets avec ajout de contenu. Nous testons donc la présence du champ “quoted_status” pour reconstituer ensuite la citation.
-Le contenu textuel récupéré est du texte brut. Il ne contient pas les liens sur les #hashtags, les @user ou encore les liens. Nous avons donc créé 3 méthodes pour convertir ces données en liens vers le site de Twitter.
+Lors d’une recherche standard l’objet renvoyé contenant les tweets contient un champ "text" dans lequel le contenu est tronqué. Nous avons donc ajouté le paramètre "tweet_mode=extended" dans notre requête afin d’obtenir le champ "full_text" dans l’objet renvoyé.  
+Malheureusement lors d’un ReTweet, le champ "full_text" est malgré tout tronqué. Le Tweet original au complet est disponible dans l’objet "retweeted_status.full_text". Lors du formatage du texte soit on affiche le contenu du tweet soit on reconstruit le tweet avec le prefixe `@ RT["user"]["screen_name"] :`.  
+Nous avons aussi ajouté la gestion des "citations" qui sont des Retweets avec ajout de contenu. Nous testons donc la présence du champ "quoted_status" pour reconstituer ensuite la citation.  
+Le contenu textuel récupéré est du texte brut. Il ne contient pas les liens sur les `#hashtags`, les `@user` ou encore les liens. Nous avons donc créé 3 méthodes pour convertir ces données en liens vers le site de _Twitter_.
 
 ### Données complémentaires
 Derniers détails, nous avons ajouté le nombre de ReTweet et de Like. Nous souhaitions également ajouter de nombre de réponses au Tweet mais cette donnée n’est disponible qu’avec la version premium de l’API. 
