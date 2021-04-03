@@ -23,12 +23,11 @@ Lors de la conversion du résultat de la recherche, on profite que la fonction b
 
 ## Formatage du contenu d’un tweet pour l’affichage
 ### Gestion des images
-Il nous a donc fallu télécharger les images et les stocker sur notre serveur. Cela implique de supprimer régulièrement les images inutilisées pour limiter la surcharge du serveur.
+Il nous a donc fallu télécharger les images et les stocker sur notre serveur. Cela implique de supprimer régulièrement les images inutilisées pour limiter la surcharge du serveur.  
 Pour ce faire nous avons mis en place un système de tokens sauvegardés en sessions qui correspond à un dossier temporaire sur le serveur.
-Les tokens sont composés comme ceci :  
-`t_[entier aléatoire]_[date de création du token]`
+Les tokens sont composés comme ceci : `t_[entier aléatoire]_[date de création du token]`
 
-De cette manière, lorsqu'un utilisateur fait une recherche, nous vérifions son token afin de lui attribuer un nouveau token s’il ne contient pas la date du jour ou s’il est absent.
+De cette manière, lorsqu'un utilisateur fait une recherche, nous vérifions son token afin de lui attribuer un nouveau token s’il ne contient pas la date du jour ou s’il est absent.  
 Nous supprimons aussi tous les dossiers ne contenant pas la date du jour.
 
 Et nous créons un nouveau dossier pour cet utilisateur où toutes les images qu’il faudra lui charger seront stockées. Ce système de token est utile pour dater les documents et éviter qu’un utilisateur ne supprime le dossier d’un autre.
@@ -42,7 +41,7 @@ Nous avons aussi ajouté la gestion des "citations" qui sont des Retweets avec a
 Le contenu textuel récupéré est du texte brut. Il ne contient pas les liens sur les `#hashtags`, les `@user` ou encore les liens. Nous avons donc créé 3 méthodes pour convertir ces données en liens vers le site de _Twitter_.
 
 ### Données complémentaires
-Derniers détails, nous avons ajouté le nombre de ReTweet et de Like. Nous souhaitions également ajouter de nombre de réponses au Tweet mais cette donnée n’est disponible qu’avec la version premium de l’API. 
+Derniers détails, nous avons ajouté le nombre de ReTweet et de Like. Nous souhaitions également ajouter de nombre de réponses au Tweet mais cette donnée n’est disponible qu’avec la version premium de l’API.  
 Nous avons également rajouté un lien vers le tweet original, cette fonction étant très pratique lors de la phase de développement pour vérifier que nous récupérions bien le maximum de données.
 
 ## Plugins utilisés
@@ -57,8 +56,8 @@ Nous avons fait le choix d’utiliser le framework bootstrap pour la réalisatio
 
 ## Améliorations envisagées
 ### Gestion des médias
-Actuellement nous ne gérons pas les médias inclus dans un tweet (type image ou vidéo). 
-De la même manière que les images de profil ou de bannière, les médias inclus dans un tweet proviennent de domaines bloqués par certains navigateurs. Il nous faudrait donc également les stocker sur notre serveur pour pouvoir les afficher ensuite.
+Actuellement nous ne gérons pas les médias inclus dans un tweet (type image ou vidéo).  
+De la même manière que les images de profil ou de bannière, les médias inclus dans un tweet proviennent de domaines bloqués par certains navigateurs. Il nous faudrait donc également les stocker sur notre serveur pour pouvoir les afficher ensuite.  
 Notre application n’étant pas des plus rapides et l’espace disque étant limité nous avons choisi de ne pas rajouter cette fonctionnalité pour le moment. 
 
 ### Traduction des termes de recherche
