@@ -1,5 +1,5 @@
 # Projet Twitter Multipoint
-Accessible en ligne : http://twitter.gabrieltavernier.fr/
+Accessible en ligne : http://gabriel.lpweb-lannion.fr:8088
 
 ## Membre du groupe
 - Emeric DURDOS
